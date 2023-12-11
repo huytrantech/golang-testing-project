@@ -1,0 +1,8 @@
+mockgen --source=./repository/order_repo.go --destination=./mocking/order_repo_mockgen.go --package=mocking
+
+INSERT INTO orders (id, order_code, sub_amount)
+SELECT
+    nextval('orders_id_seq'),
+    gen_random_uuid(),
+    floor(random() * (500000 - 10000 + 1) + 10000)::numeric(10,2)
+FROM generate_series(1, 1000);
